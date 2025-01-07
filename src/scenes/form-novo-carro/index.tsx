@@ -19,7 +19,6 @@ const FormNovoCarro = () => {
             toast.success('Carro criado com sucesso.');
             navigate('/carros');
         }).catch((error) => {
-            console.log(error);
             toast.error('Error ao criar o novo carro.');
             navigate('/carros');
         });

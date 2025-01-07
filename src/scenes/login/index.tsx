@@ -1,36 +1,54 @@
-import {Box, Button, CircularProgress, Container, Paper, TextField, Typography} from "@mui/material";
-import {useState} from "react";
-import UsuarioService from "../../services/Usuario";
-import {useNavigate} from "react-router-dom";
+/**
+ * Componente de Login.
+ *
+ * Este componente fornece:
+ * - Um formulário para autenticação do usuário.
+ * - Validação de credenciais via serviço `UsuarioService`.
+ * - Redirecionamento para a rota `/carros` após login bem-sucedido.
+ * - Mensagens de erro em caso de falhas na autenticação.
+ */
 
-const Login = (props: any) => {
-    const usuarioService = new UsuarioService();
-    const navigate = useNavigate();
+import {Box, Button, CircularProgress, Container, Paper, TextField, Typography} from '@mui/material';
+import {useState} from 'react';
+import UsuarioService from '../../services/Usuario';
+import {useNavigate} from 'react-router-dom';
+import {Usuario} from '../../model/usuario';
 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
+interface LoginProps {
+    setAuthenticaded: React.Dispatch<React.SetStateAction<boolean>>,
+    setUsuario: React.Dispatch<React.SetStateAction<Usuario>>
+}
 
+const Login: React.FC<LoginProps> = ({setAuthenticaded, setUsuario}) => {
+    const usuarioService = new UsuarioService(); // Serviço para operações relacionadas ao usuário.
+    const navigate = useNavigate(); // Gerenciador de navegação.
+
+    const [username, setUsername] = useState(''); // Armazena o nome de usuário.
+    const [password, setPassword] = useState(''); // Armazena a senha.
+    const [loading, setLoading] = useState(false); // Indica carregamento do login.
+    const [error, setError] = useState(''); // Mensagem de erro.
+
+    // Função para lidar com o login do usuário.
     const handleLogin = () => {
         setLoading(true);
         setError('');
         usuarioService.login(username, password)
             .then((response) => {
+                // Após login bem-sucedido, busca o perfil do usuário.
                 usuarioService.getPerfil()
                     .then((response) => {
-                        props.setUsuario(response.data);
-                    })
-                localStorage.setItem("token", response.data['token']);
-                props.setAuthenticaded(true);
-                navigate('/carros');
+                        setUsuario(response.data); // Define os dados do usuário no estado pai.
+                    });
+                localStorage.setItem('token', response.data['token']); // Armazena o token no localStorage.
+                setAuthenticaded(true); // Define o estado autenticado.
+                navigate('/carros'); // Redireciona para a página de carros.
             }).catch(error => {
             setLoading(false);
-            setError("Nome de usuário ou senha inválido");
-        })
-    }
+            setError('Nome de usuário ou senha inválido');
+        });
+    };
 
-    return(
+    return (
         <Container component="main"
                    maxWidth="xs"
                    sx={{
@@ -47,9 +65,10 @@ const Login = (props: any) => {
                        flexDirection: 'column',
                        alignItems: 'center',
                        width: '100%',
-                       maxWidth: 400,}}>
+                       maxWidth: 400,
+                   }}>
 
-                <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
+                <Typography component="h1" variant="h5" sx={{textAlign: 'center'}}>
                     Login
                 </Typography>
                 {error && (<Typography color="error" variant="body2" sx={{marginTop: 1}}>
@@ -86,11 +105,11 @@ const Login = (props: any) => {
                         disabled={loading}
                         sx={{marginTop: 2}}
                     >
-                        {loading ? <CircularProgress color="inherit" /> : 'Entrar'}
+                        {loading ? <CircularProgress color="inherit"/> : 'Entrar'}
                     </Button>
                 </Box>
             </Paper>
         </Container>);
-}
+};
 
 export default Login;

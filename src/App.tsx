@@ -1,3 +1,13 @@
+/**
+ * Componente principal da aplicação React.
+ *
+ * O componente `App` gerencia:
+ * - Autenticação de usuários.
+ * - Tema e alternância de modo claro/escuro.
+ * - Estrutura de layout com barra lateral e barra superior.
+ * - Configuração de rotas para navegação entre páginas.
+ */
+
 import {useState} from 'react';
 import {Route, Routes} from 'react-router-dom';
 import Topbar from './components/Topbar';
@@ -11,19 +21,18 @@ import FormNovoCarro from './scenes/form-novo-carro';
 import Login from './scenes/login';
 
 function App() {
-    //const {theme, colorMode} = useMode();
-    const [theme, colorMode] = useMode();
-    const [isSidebar, setIsSidebar] = useState(true);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [usuario, setUsuario] = useState({});
+    const [theme, colorMode] = useMode(); // Gerencia o tema e o modo de cor.
+    const [isAuthenticated, setIsAuthenticated] = useState(false); // Estado de autenticação.
+    const [usuario, setUsuario] = useState({}); // Estado de autenticação.
 
     return (
         <ColorModeContext.Provider value={colorMode}>
             <ThemeProvider theme={theme}>
-                <CssBaseline/>
+                <CssBaseline/> {/* Reseta os estilos padrão do navegador */}
                 {isAuthenticated ? (
+                    // Renderiza a aplicação principal para usuários autenticados.
                     <div className="app">
-                        <Sidebar isSidebar={isSidebar} usuario={usuario}/>
+                        <Sidebar usuario={usuario}/>
                         <main className="content">
                             <Topbar setAuthenticaded={setIsAuthenticated}/>
                             <Routes>

@@ -3,8 +3,6 @@ import {Carro} from '../../model/carro';
 
 class CarroService {
     serverPath = '/api/carros';
-    //apiUrl = 'http://localhost:8080';
-    //apiUrl = 'http://52.45.177.208:9041';
     apiUrl = process.env.REACT_APP_API_URL;
 
     getAllPaginated(page: number, limit: number) {

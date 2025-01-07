@@ -21,21 +21,21 @@
 
 **Atenção**: É extremamente importante que a aplicação backend esteja rodando na porta 8080.
 
-3. **Clone o Repositório**:
+2. **Clone o Repositório**:
    Abra o terminal e clone o repositório onde o projeto está armazenado:
    ```bash
    git clone https://github.com/flavio-vicentini-poa/react-spring-front
    cd react-spring-front 
    ```
 
-4. **Instale as Dependências**:
-   Execute o seguinte comando para instalar todas as dependências necessárias, conforme especificado no `package.json`.
+3. **Instale as Dependências**:
+   Instale as dependências necessárias que estão especificadas no `package.json`.
    Algumas bibliotecas estão em modo legado, é importante utilizar a flag "--force":
    ```bash
    npm install --force
    ```
 
-5. **Inicie a Aplicação**:
+4. **Inicie a Aplicação**:
    Para iniciar o frontend em ambiente de desenvolvimento:
    ```bash
    npm run start

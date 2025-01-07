@@ -35,11 +35,10 @@ const Item: React.FC<ItemProps> = ({title, to, icon, selected, setSelected}) => 
 };
 
 interface SidebarProps {
-    isSidebar?: boolean;
     usuario: any;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({usuario, isSidebar}) => {
+const Sidebar: React.FC<SidebarProps> = ({usuario}) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [isCollapsed, setIsCollapsed] = useState(false);

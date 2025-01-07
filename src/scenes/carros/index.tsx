@@ -1,3 +1,12 @@
+/**
+ * Componente de gerenciamento de carros.
+ *
+ * Este componente exibe uma tabela com a lista de carros cadastrados, permitindo:
+ * - Adicionar, editar e excluir carros.
+ * - Paginação e carregamento de dados do servidor.
+ * - Interface estilizada com Material-UI.
+ */
+
 import {Box, Button, CircularProgress} from '@mui/material';
 import {DataGrid, GridToolbar} from '@mui/x-data-grid';
 import {tokens} from '../../theme';
@@ -15,7 +24,7 @@ const Carros = () => {
     const colors = tokens(theme.palette.mode);
     const [loading, setLoading] = useState<boolean>(true);
 
-    const [carros, setCarros] = useState<Carro[]>([]);
+    const [carros, setCarros] = useState<Carro[]>([]); // Lista de carros.
 
     const carroService = new CarroService();
     const navigate = useNavigate();
@@ -35,7 +44,7 @@ const Carros = () => {
         navigate('/form-edit-carro/' + id, {state: {mode: 'update'}});
     };
 
-    // Delete Handlers
+    // Estado e controle para exclusão.
     const [idCarroDelete, setIdCarroDelete] = useState<string>('');
     const [openModalDelete, setOpenModalDelete] = useState(false); // variavel de controle de abertura do modal
 

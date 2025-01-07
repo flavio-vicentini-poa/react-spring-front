@@ -26,7 +26,6 @@ const FormEditCarro = () => {
                 toast.success('Carro editado com sucesso.');
                 navigate('/carros');
             }).catch((error) => {
-                console.log(error);
                 toast.error('Error ao editar o carro.');
                 navigate('/carros');
             });
